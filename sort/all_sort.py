@@ -31,7 +31,7 @@ def perfect(nums):
     x = []
     for i in nums:
         summa = 1
-        for j in range(2, i ** 0.5 + 1):
+        for j in range(2, int(i ** 0.5) + 1):
             if i % j == 0:
                 summa += j
                 summa += i // j
@@ -44,7 +44,7 @@ def simple(nums):
     x = []
     for i in nums:
         z = False
-        for j in range(2, i ** 0.5 + 1):
+        for j in range(2, int(i ** 0.5) + 1):
             if i % j == 0:
                 z = True
         if not z:
@@ -56,7 +56,7 @@ def not_simple(nums):
     x = []
     for i in nums:
         z = False
-        for j in range(2, i ** 0.5 + 1):
+        for j in range(2, int(i ** 0.5) + 1):
             if i % j == 0:
                 z = True
         if z:

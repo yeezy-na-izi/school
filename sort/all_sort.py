@@ -1,4 +1,14 @@
-def bubble_sort(nums):
+def bubble_sort(array):
+    x = len(array)
+    for i in range(x - 1):
+        for j in range(x - i - 1):
+            if array[j] > array[j + 1]:
+                buff = array[j]
+                array[j] = array[j + 1]
+                array[j + 1] = buff
+
+
+def mod_bubble_sort(nums):
     swapped = True
     while swapped:
         swapped = False
@@ -50,5 +60,13 @@ def not_simple(nums):
             if i % j == 0:
                 z = True
         if z:
+            x.append(i)
+    return x
+
+
+def palindrome(nums):
+    x = []
+    for i in nums:
+        if str(i) == str(i)[::-1]:
             x.append(i)
     return x

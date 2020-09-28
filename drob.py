@@ -29,7 +29,6 @@ def to_10(n, x):
     print(z, y)
     print(number)
 
-
 to_10('1010.1010', 2)
 time.sleep(1)
 print("--- %s seconds ---" % (time.time() - start))

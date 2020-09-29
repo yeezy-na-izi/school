@@ -25,10 +25,38 @@ def to_10(n, x):
         else:
             q += (ord(n[0][i]) - 55) * st
         st *= x
-    number = q + z / y
+
     print(z, y)
+    z += y * q
+    number = convert(z, y)
     print(number)
 
-to_10('1010.1010', 2)
+
+def convert(numerator, denominator):
+    ans = str(numerator // denominator) + "."
+    l = {}
+    index = 0
+    numerator = numerator % denominator
+    l[numerator] = index
+    t = False
+    while t == False:
+        if numerator == 0:
+            break
+        digit = numerator * 10 // denominator
+        numerator = numerator * 10 - (numerator * 10 // denominator) * denominator
+        if numerator not in l:
+            ans += str(digit)
+            index += 1
+            l[numerator] = index
+            t = False
+        else:
+            ans += str(digit) + ")"
+            ans = ans[:l.get(numerator) + len(ans[:ans.index(".") + 1])] + "(" + ans[l.get(numerator) + len(
+                ans[:ans.index(".") + 1]):]
+            t = True
+    return ans
+
+
+to_10('', 2)
 time.sleep(1)
 print("--- %s seconds ---" % (time.time() - start))

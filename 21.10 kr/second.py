@@ -1,5 +1,5 @@
 inp = input()
-cc = int(input())
+cc = 6  # здесь смема СС
 
 if '.' in inp:
     inp = inp.split('.')

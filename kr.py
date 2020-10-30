@@ -1,31 +1,26 @@
-def pk_p(n, p, k):
-    outp = ''
-    for i in n:
-        st = ''
-        if i.isdigit():
-            b = int(i)
-        else:
-            b = ord(i) - 55
-        while b:
-            ost = b % p
-            st = str(ost) + st
-            b //= p
-        outp += '0' * (k - len(st)) + st
-    return outp.lstrip("0")
+import math
 
-
-def p_pk(n, p, k):
-    outp = ""
-    n = '0' * ((k - len(n) % k) % k) + n
-    for i in range(len(n) // k):
-        num = n[i * k: (i + 1) * k]
-        mult = 1
-        s = 0
-        for j in range(k - 1, -1, -1):
-            s += int(num[j]) * mult
-            mult *= p
-        if s >= 10:
-            outp += chr(s + 55)
+st = input().split()
+stack = []
+F = False
+for i in st:
+    if i.isdigit():
+        stack.append(i)
+    else:
+        if len(stack) > 1 and i in '+-/*':
+            x1 = stack.pop()
+            x2 = stack.pop()
+            stack.append(eval(f'{x2}{i}{x1}'))
+        elif len(stack) > 0 and i not in '+-/*':
+            if i == 'abs':
+                z = compile(f'{i}({stack.pop()})', "<string>", "eval")
+            else:
+                z = compile(f'math.{i}({stack.pop()})', "<string>", "eval")
+            stack.append(eval(z))
         else:
-            outp += str(s)
-    return outp
+            F = True
+            break
+if F or len(stack) != 1:
+    print('ERROR')
+else:
+    print("{0:.3f}".format(stack[0]))

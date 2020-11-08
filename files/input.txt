@@ -1,0 +1,6 @@
+5
+Jack 4 Poodle
+Wenny 6 Laika
+Mary 3 Newfoundland
+Moon 12 Labrador
+Han 4 Terrier

@@ -1,26 +1,29 @@
-for x in range(1000):
-    n = x
-    a = 0
-
-    b = 0
-
-    i = 0
-
-    while x > 0:
-
-        i = i + 1
-
-        c = x % 10
-
-        if i % 2 == 0:
-
-            a = a + c
-
+stack = []
+c = []
+while True:
+    a = input().split()
+    if a[0] == "push":
+        stack.append(a[1])
+        c.append("ok")
+    elif a[0] == "size":
+        c.append(len(stack))
+    elif a[0] == "clear":
+        stack.clear()
+        c.append('ok')
+    elif a[0] == "pop":
+        if len(stack) > 0:
+            c.append(stack.pop(0))
         else:
-
-            b = b + c
-
-        x = x // 10
-    if a == 3 and b == 2:
-        print(n)
-
+            c.append('error')
+    elif a[0] == "front":
+        if len(stack) > 0:
+            c.append(stack[0])
+        else:
+            c.append('error')
+    elif a[0] == "exit":
+        c.append("bye")
+        break
+    else:
+        c.append('error')
+for i in range(len(c)):
+    print(c[i])

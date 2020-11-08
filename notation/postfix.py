@@ -1,9 +1,11 @@
-data = input("Введите постфиксное выражение:").split()
+data = input("Введите постфиксное выражение: ").split()
 
 stack = []
 f = 1
+i = 0
 for x in data:
     if x in "+-*/":
+        i += 1
         if len(stack) < 2:
             print("ERROR")
             f = 0
@@ -18,6 +20,7 @@ for x in data:
             res = op1 * op2
         else:
             res = op1 // op2
+        print(f'{i}) {op1} {x} {op2} = {res}')
         stack.append(res)
     else:
         stack.append(x)

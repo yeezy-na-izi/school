@@ -14,3 +14,4 @@ def from_p_to_10(inp, cc):
             print(whole + int(dr, cc) / (cc ** len(dr)))
     else:
         print(float(int(inp, cc)))
+        return float(int(inp, cc))

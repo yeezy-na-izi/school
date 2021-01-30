@@ -1,5 +1,6 @@
-x = [i for i in range(2055, 9415) if i % 5 and i % 4 and i % 41 and sum([int(j) for j in str(i % 100)]) != 5]
-z = 1
+x = [i for i in range(1031, 125889) if str(i)[-1] != '5' and int(i ** 0.5) == i ** 0.5]
+print(len(x))
 for i in x:
-    z *= i
-print(x[0], z % 1000)
+    if str(i)[-2:] == '36':
+        print(i)
+        break

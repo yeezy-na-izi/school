@@ -1,2 +1,2 @@
-x = [i for i in range(-7018, -3790) if not i % 6 and i % 7 and i % 19 and i % 10 != 2]
-print(len(x), x[0])
+x = [i for i in range(100001, 900010) if i % 7 + i % 10 == 10 and not i % 11 and i % 5]
+print(len(x), x[-1])

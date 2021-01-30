@@ -1,2 +1,4 @@
-x = [i for i in range(-9563, -3101) if not i % 7 and i % 11 and i % 23 and i % 10 != 8]
-print(len(x), x[0])
+from math import prod
+
+x = [i for i in range(8800, 55535) if prod([int(j) for j in str(i)]) > 35 and '7' in str(i)]
+print(len(x), x[-1])

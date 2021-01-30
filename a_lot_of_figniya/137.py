@@ -1,19 +1,11 @@
-x = []
-
 for i in range(500000, 1000001):
-    f = True
-    kol = 0
-    k = int(i ** 0.5)
-    for j in range(k, k - 51, -1):
-        if not i % j:
-            if i // j - j <= 90:
-                kol += 1
-                if kol == 3:
-                    if f:
-                        dma = i // k
-                    break
-            else:
-                break
-    if kol == 3:
-        x.append((i, dma))
-print(x)
+    mx = int(i ** 0.5) + 1
+    cot = 0
+    a = []
+    for j in range(2, mx):
+        if i % j == 0 and i // j - j < 91:
+            cot += 1
+            a.append(i // j)
+        if cot == 3:
+            print(i, a[0])
+            break

@@ -1,2 +1,2 @@
-x = [i for i in range(3912, 9194) if sum([int(j) for j in str(i)]) % 9 == 0 and i % (16 * 16) != 33]
+x = [i for i in range(4563, 7913) if not i % 7 and sum([int(j) for j in str(i)[::3]]) > 10]
 print(len(x), x[-1])

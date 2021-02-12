@@ -1,18 +1,23 @@
-x, y = [int(i) for i in input().split()]
-q = -1
-z = []
-for i in range(x):
-    z.append([int(i) for i in input().split()[:y]])
-coun = 0
-mi = []
-ma = []
-for i in range(len(z)):
-    mi.append([i, z[i].index(min(z[i]))])
-for i in range(y):
-    x = []
-    for j in z:
-        x.append(j[i])
-    ma.append([x.index(max(x)), i])
-for i in ma:
-    if i in mi:
-        print(i[0] + 1, i[1] + 1)
+def mtrx_snake(i, j, n, m):
+    k = min(i, j, n - i - 1, m - j - 1)
+
+    if k == i:
+        return 4 * (k * m - k ** 2) + j - k + 1
+    elif k == j:
+        return 4 * (k * n - k ** 2) + 4 * m - 7 * k - i - 3
+    elif k == m - j - 1:
+        return 4 * (k * m - k ** 2) + m - 3 * k + i
+    elif k == n - i - 1:
+        return 4 * (k * n - k ** 2) + 3 * n - 5 * k - j - 2
+
+
+n = int(input())
+m = int(input())
+mtrx = [[0 for j in range(m)] for i in range(n)]
+
+print()
+for i in range(n):
+    for j in range(m):
+        mtrx[i][j] = mtrx_snake(i, j, n, m)
+        print(mtrx[i][j], end='\t')
+    print()

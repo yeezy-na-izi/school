@@ -1,8 +1,13 @@
+import random
+import copy
+
+
 class BalancedTree:
-    def __init__(self, value):
+    def __init__(self, value, left=None, right=None):
         self.value = value
-        self.left = None
-        self.right = None
+        self.left = left
+        self.right = right
+        self.f = 0
 
     def insert(self, value):
         if self.value:
@@ -18,8 +23,45 @@ class BalancedTree:
                     self.right.insert(value)
             else:
                 return
+            self.f = self.height(self.left) - self.height(self.right)
+            self.balance()
+
         else:
             self.value = value
+
+    def __str__(self):
+        if self.value is None:
+            return ''
+        return ' '.join(f'{self.left if self.left else ""} '
+                        f'{self.value if self.value else ""} '
+                        f'{self.right if self.right else ""}'
+                        .split())
+
+    def balance(self):
+        if self.f == 2:
+            if self.left.f < 0:
+                self.left.small_left()
+            self.small_right()
+        if self.f == -2:
+            if self.right.f > 0:
+                self.right.small_right()
+            self.small_left()
+
+    def small_left(self):
+        right = self.right
+        self.right = right.left
+        right.left = copy.deepcopy(self)
+        self.right = right.right
+        self.value = right.value
+        self.left = right.left
+
+    def small_right(self):
+        left = self.left
+        self.left = left.right
+        left.right = copy.deepcopy(self)
+        self.right = left.right
+        self.value = left.value
+        self.left = left.left
 
     def display(self):
         lines, *_ = self._display_aux()
@@ -27,8 +69,7 @@ class BalancedTree:
             print(line)
 
     def _display_aux(self):
-        """Returns list of strings, width, height, and horizontal coordinate of the root."""
-        # No child.
+
         if self.right is None and self.left is None:
             line = '%s' % self.value
             width = len(line)
@@ -36,7 +77,6 @@ class BalancedTree:
             middle = width // 2
             return [line], width, height, middle
 
-        # Only left child.
         if self.right is None:
             lines, n, p, x = self.left._display_aux()
             s = '%s' % self.value
@@ -78,27 +118,11 @@ class BalancedTree:
             return lheight + 1
         return rheight + 1
 
-    def min(self):
-        if self.left is None:
-            print(self.value)
-        else:
-            self.left.min()
-
-    def max(self):
-        if self.right is None:
-            print(self.value)
-        else:
-            self.right.max()
-
-    def __contains__(self, item):
-        if str(item) in str(self).split():
-            return 'YES'
-        return 'NO'
-
-
-import random
 
 b = BalancedTree(50)
-for _ in range(50):
-    b.insert(random.randint(0, 100))
+
+for i in range(50):
+    b.insert(random.randint(0, 150))
+print()
+
 b.display()

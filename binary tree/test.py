@@ -25,7 +25,6 @@ class BalancedTree:
                 return
             self.f = self.height(self.left) - self.height(self.right)
             self.balance()
-
         else:
             self.value = value
 
@@ -69,7 +68,6 @@ class BalancedTree:
             print(line)
 
     def _display_aux(self):
-
         if self.right is None and self.left is None:
             line = '%s' % self.value
             width = len(line)
@@ -106,23 +104,26 @@ class BalancedTree:
         elif q < p:
             right += [m * ' '] * (p - q)
         zipped_lines = zip(left, right)
-        lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
+        lines = [first_line, second_line] + [a + u * ' ' + x for a, x in zipped_lines]
         return lines, n + m + u, max(p, q) + 2, n + u // 2
 
     def height(self, node):
         if node is None:
             return 0
-        lheight = self.height(node.left)
-        rheight = self.height(node.right)
-        if lheight > rheight:
-            return lheight + 1
-        return rheight + 1
+        l_height = self.height(node.left)
+        r_height = self.height(node.right)
+        if l_height > r_height:
+            return l_height + 1
+        return r_height + 1
 
 
 b = BalancedTree(50)
 
-for i in range(50):
-    b.insert(random.randint(0, 150))
+for i in range(60):
+    b.insert(random.randint(0, 200))
 print()
-
 b.display()
+# q = input()
+# for i in q:
+#     b.insert(int(i))
+# b.display()

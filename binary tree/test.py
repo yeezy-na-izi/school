@@ -40,12 +40,15 @@ class BalancedTree:
                     self.right.insert(value)
             else:
                 return
+            # Подсчет фактора баланса
             self.f = self.height(self.left) - self.height(self.right)
+            # Проверка на балансировку и само балансирование
             self.balance()
         else:
             self.value = value
 
     def __str__(self):
+        # Для дебага
         if self.value is None:
             return ''
         return ' '.join(f'{self.left if self.left else ""} '
@@ -56,16 +59,19 @@ class BalancedTree:
     def balance(self):
         if self.f == 2:
             if self.left.f < 0:
+                # Для большого
                 self.left.small_left()
             self.small_right()
         if self.f == -2:
             if self.right.f > 0:
+                # Для большого
                 self.right.small_right()
             self.small_left()
 
     def small_left(self):
         right = self.right
         self.right = right.left
+        # Использую deepcopy так как без него идет рекурсия (объект в объекте)
         right.left = copy.deepcopy(self)
         self.right = right.right
         self.value = right.value
@@ -74,26 +80,24 @@ class BalancedTree:
     def small_right(self):
         left = self.left
         self.left = left.right
+        # Использую deepcopy так как без него идет рекурсия (объект в объекте)
         left.right = copy.deepcopy(self)
         self.right = left.right
         self.value = left.value
         self.left = left.left
 
-    def display(self, level=0):
+    def display(self):
         lines, *_ = self.display_helper()
         for line in lines:
             print(line)
-        # if self.value is not None:
-        #     self.left.display(level + 1)
-        #     print(' ' * 4 * level + '->', self.value)
-        #     self.right.display(level + 1)
 
     def display_helper(self):
+        # Без детей
         if self.right is None and self.left is None:
             line = str(self.value)
             width = len(line)
             return [line], width, 1, width // 2
-
+        # Без правого ребенка
         if self.right is None:
             lines, height, width, x_pos = self.left.display_helper()
             str_value = str(self.value)
@@ -103,7 +107,7 @@ class BalancedTree:
             line_right_number = [line + len_value * ' ' for line in lines]
             return [line_left_number,
                     line_without_number] + line_right_number, height + len_value, width + 2, height + len_value // 2
-
+        # Без левого ребенка
         if self.left is None:
             lines, height, width, x_pos = self.right.display_helper()
             str_value = str(self.value)
@@ -113,7 +117,7 @@ class BalancedTree:
             line_right_number = [len_value * ' ' + line for line in lines]
             return [line_left_number,
                     line_without_number] + line_right_number, height + len_value, width + 2, len_value // 2
-
+        # Дети есть
         left, height_left, width_left, x_pos = self.left.display_helper()
         right, height_right, width_right, y_pos = self.right.display_helper()
         str_value = str(self.value)
@@ -129,6 +133,7 @@ class BalancedTree:
                max(width_left, width_right) + 2, \
                height_left + len_value // 2
 
+    # Нужна высота для определения фактора баланса
     def height(self, node):
         if node is None:
             return 0
@@ -139,15 +144,19 @@ class BalancedTree:
         return r_height + 1
 
 
-b = BalancedTree(50)
+# дерево "а" для неотсортированного вывода
 # a = BalancedTree(50)
+b = BalancedTree(50)
 for i in range(60):
     x = random.randint(0, 200)
     b.insert(x)
     # a.insert_without_balance(x)
 b.display()
 # a.display()
-# q = input()
+
+# это для ручного ввода
+
+# q = input().split()
 # for i in q:
 #     b.insert(int(i))
 #     a.insert_without_balance(int(i))

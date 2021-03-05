@@ -9,6 +9,23 @@ class BalancedTree:
         self.right = right
         self.f = 0
 
+    def insert_without_balance(self, value):
+        if self.value:
+            if value < self.value:
+                if self.left is None:
+                    self.left = BalancedTree(value)
+                else:
+                    self.left.insert(value)
+            elif value > self.value:
+                if self.right is None:
+                    self.right = BalancedTree(value)
+                else:
+                    self.right.insert(value)
+            else:
+                return
+        else:
+            self.value = value
+
     def insert(self, value):
         if self.value:
             if value < self.value:
@@ -63,49 +80,46 @@ class BalancedTree:
         self.left = left.left
 
     def display(self):
-        lines, *_ = self._display_aux()
+        lines, *_ = self.display_helper()
         for line in lines:
             print(line)
 
-    def _display_aux(self):
+    def display_helper(self):
         if self.right is None and self.left is None:
-            line = '%s' % self.value
+            line = str(self.value)
             width = len(line)
-            height = 1
-            middle = width // 2
-            return [line], width, height, middle
+            return [line], width, 1, width // 2
 
         if self.right is None:
-            lines, n, p, x = self.left._display_aux()
-            s = '%s' % self.value
+            lines, n, p, x = self.left.display_helper()
+            s = str(self.value)
             u = len(s)
-            first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
-            second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
+            line_with_number = (x + 1) * ' ' + (n - x - 1) * '_' + s
+            line_without_number = x * ' ' + '/' + (n - x - 1 + u) * ' '
             shifted_lines = [line + u * ' ' for line in lines]
-            return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
+            return [line_with_number, line_without_number] + shifted_lines, n + u, p + 2, n + u // 2
 
         if self.left is None:
-            lines, n, p, x = self.right._display_aux()
-            s = '%s' % self.value
+            lines, n, p, x = self.right.display_helper()
+            s = str(self.value)
             u = len(s)
-            first_line = s + x * '_' + (n - x) * ' '
-            second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
+            line_with_number = s + x * '_' + (n - x) * ' '
+            line_without_number = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
             shifted_lines = [u * ' ' + line for line in lines]
-            return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
+            return [line_with_number, line_without_number] + shifted_lines, n + u, p + 2, u // 2
 
-        left, n, p, x = self.left._display_aux()
-        right, m, q, y = self.right._display_aux()
-        s = '%s' % self.value
+        left, n, p, x = self.left.display_helper()
+        right, m, q, y = self.right.display_helper()
+        s = str(self.value)
         u = len(s)
-        first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
-        second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
+        line_with_number = f'{(x + 1) * " "}{(n - x - 1) * "_"}{s}{y * "_"}{(m - y) * " "}'
+        line_without_number = f'{x * " "}/{(n - x - 1 + u + y) * " "}\\{(m - y - 1) * " "}'
         if p < q:
             left += [n * ' '] * (q - p)
         elif q < p:
             right += [m * ' '] * (p - q)
-        zipped_lines = zip(left, right)
-        lines = [first_line, second_line] + [a + u * ' ' + x for a, x in zipped_lines]
-        return lines, n + m + u, max(p, q) + 2, n + u // 2
+        return [line_with_number, line_without_number] + [a + u * ' ' + x for a, x in zip(left, right)], \
+               n + m + u, max(p, q) + 2, n + u // 2
 
     def height(self, node):
         if node is None:
@@ -118,12 +132,16 @@ class BalancedTree:
 
 
 b = BalancedTree(50)
-
+a = BalancedTree(50)
 for i in range(60):
-    b.insert(random.randint(0, 200))
-print()
+    x = random.randint(0, 200)
+    b.insert(x)
+    a.insert_without_balance(x)
 b.display()
+# a.display()
 # q = input()
-# for i in q:
-#     b.insert(int(i))
-# b.display()
+# # for i in q:
+# #     b.insert(int(i))
+# #     a.insert_without_balance(int(i))
+# # b.display()
+# # a.display()

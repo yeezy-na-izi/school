@@ -79,10 +79,14 @@ class BalancedTree:
         self.value = left.value
         self.left = left.left
 
-    def display(self):
+    def display(self, level=0):
         lines, *_ = self.display_helper()
         for line in lines:
             print(line)
+        # if self.value is not None:
+        #     self.left.display(level + 1)
+        #     print(' ' * 4 * level + '->', self.value)
+        #     self.right.display(level + 1)
 
     def display_helper(self):
         if self.right is None and self.left is None:
@@ -91,35 +95,39 @@ class BalancedTree:
             return [line], width, 1, width // 2
 
         if self.right is None:
-            lines, n, p, x = self.left.display_helper()
-            s = str(self.value)
-            u = len(s)
-            line_with_number = (x + 1) * ' ' + (n - x - 1) * '_' + s
-            line_without_number = x * ' ' + '/' + (n - x - 1 + u) * ' '
-            shifted_lines = [line + u * ' ' for line in lines]
-            return [line_with_number, line_without_number] + shifted_lines, n + u, p + 2, n + u // 2
+            lines, height, width, x_pos = self.left.display_helper()
+            str_value = str(self.value)
+            len_value = len(str_value)
+            line_left_number = (x_pos + 1) * ' ' + (height - x_pos - 1) * '_' + str_value
+            line_without_number = x_pos * ' ' + '/' + (height - x_pos - 1 + len_value) * ' '
+            line_right_number = [line + len_value * ' ' for line in lines]
+            return [line_left_number,
+                    line_without_number] + line_right_number, height + len_value, width + 2, height + len_value // 2
 
         if self.left is None:
-            lines, n, p, x = self.right.display_helper()
-            s = str(self.value)
-            u = len(s)
-            line_with_number = s + x * '_' + (n - x) * ' '
-            line_without_number = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
-            shifted_lines = [u * ' ' + line for line in lines]
-            return [line_with_number, line_without_number] + shifted_lines, n + u, p + 2, u // 2
+            lines, height, width, x_pos = self.right.display_helper()
+            str_value = str(self.value)
+            len_value = len(str_value)
+            line_left_number = str_value + x_pos * '_' + (height - x_pos) * ' '
+            line_without_number = (len_value + x_pos) * ' ' + '\\' + (height - x_pos - 1) * ' '
+            line_right_number = [len_value * ' ' + line for line in lines]
+            return [line_left_number,
+                    line_without_number] + line_right_number, height + len_value, width + 2, len_value // 2
 
-        left, n, p, x = self.left.display_helper()
-        right, m, q, y = self.right.display_helper()
-        s = str(self.value)
-        u = len(s)
-        line_with_number = f'{(x + 1) * " "}{(n - x - 1) * "_"}{s}{y * "_"}{(m - y) * " "}'
-        line_without_number = f'{x * " "}/{(n - x - 1 + u + y) * " "}\\{(m - y - 1) * " "}'
-        if p < q:
-            left += [n * ' '] * (q - p)
-        elif q < p:
-            right += [m * ' '] * (p - q)
-        return [line_with_number, line_without_number] + [a + u * ' ' + x for a, x in zip(left, right)], \
-               n + m + u, max(p, q) + 2, n + u // 2
+        left, height_left, width_left, x_pos = self.left.display_helper()
+        right, height_right, width_right, y_pos = self.right.display_helper()
+        str_value = str(self.value)
+        len_value = len(str_value)
+        line_left_number = f'{(x_pos + 1) * " "}{(height_left - x_pos - 1) * "_"}{str_value}{y_pos * "_"}{(height_right - y_pos) * " "}'
+        line_without_number = f'{x_pos * " "}/{(height_left - x_pos - 1 + len_value + y_pos) * " "}\\{(height_right - y_pos - 1) * " "}'
+        if width_left < width_right:
+            left += [height_left * ' '] * (width_right - width_left)
+        elif width_right < width_left:
+            right += [height_right * ' '] * (width_left - width_right)
+        return [line_left_number, line_without_number] + [a + len_value * ' ' + x for a, x in zip(left, right)], \
+               height_left + height_right + len_value, \
+               max(width_left, width_right) + 2, \
+               height_left + len_value // 2
 
     def height(self, node):
         if node is None:
@@ -132,16 +140,16 @@ class BalancedTree:
 
 
 b = BalancedTree(50)
-a = BalancedTree(50)
+# a = BalancedTree(50)
 for i in range(60):
     x = random.randint(0, 200)
     b.insert(x)
-    a.insert_without_balance(x)
+    # a.insert_without_balance(x)
 b.display()
 # a.display()
 # q = input()
-# # for i in q:
-# #     b.insert(int(i))
-# #     a.insert_without_balance(int(i))
-# # b.display()
-# # a.display()
+# for i in q:
+#     b.insert(int(i))
+#     a.insert_without_balance(int(i))
+# b.display()
+# a.display()

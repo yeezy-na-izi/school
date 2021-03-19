@@ -66,3 +66,6 @@ def from_10_to_p(number, cc):
         print(for_integer(int(number[0]), cc) + '.' + result)
     else:
         print(for_integer(int(number[0]), cc) + '.' + result[:ind] + '(' + result[ind:] + ')')
+
+
+from_10_to_p('123', 9)

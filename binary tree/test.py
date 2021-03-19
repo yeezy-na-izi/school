@@ -122,13 +122,18 @@ class BalancedTree:
         right, height_right, width_right, y_pos = self.right.display_helper()
         str_value = str(self.value)
         len_value = len(str_value)
-        line_left_number = f'{(x_pos + 1) * " "}{(height_left - x_pos - 1) * "_"}{str_value}{y_pos * "_"}{(height_right - y_pos) * " "}'
-        line_without_number = f'{x_pos * " "}/{(height_left - x_pos - 1 + len_value + y_pos) * " "}\\{(height_right - y_pos - 1) * " "}'
+        line_left_number = f'{(x_pos + 1) * " "}' \
+                           f'{(height_left - x_pos - 1) * "_"}' \
+                           f'{str_value}{y_pos * "_"}' \
+                           f'{(height_right - y_pos) * " "}'
+        line_without_number = f'{x_pos * " "}' \
+                              f'/{(height_left - x_pos - 1 + len_value + y_pos) * " "}' \
+                              f'\\{(height_right - y_pos - 1) * " "}'
         if width_left < width_right:
             left += [height_left * ' '] * (width_right - width_left)
         elif width_right < width_left:
             right += [height_right * ' '] * (width_left - width_right)
-        return [line_left_number, line_without_number] + [a + len_value * ' ' + x for a, x in zip(left, right)], \
+        return [line_left_number, line_without_number] + [left + len_value * ' ' + r for left, r in zip(left, right)], \
                height_left + height_right + len_value, \
                max(width_left, width_right) + 2, \
                height_left + len_value // 2
@@ -149,8 +154,10 @@ class BalancedTree:
 b = BalancedTree(50)
 for i in range(60):
     x = random.randint(0, 200)
+    print(x, end=' ')
     b.insert(x)
     # a.insert_without_balance(x)
+print()
 b.display()
 # a.display()
 

@@ -164,8 +164,8 @@ b.display()
 # это для ручного ввода
 
 # q = input().split()
-# for i in q:
-#     b.insert(int(i))
-#     a.insert_without_balance(int(i))
+# for _ in q:
+#     b.insert(int(_))
+#     a.insert_without_balance(int(_))
 # b.display()
 # a.display()

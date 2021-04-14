@@ -2,12 +2,7 @@ from pythonds.basic.stack import Stack
 
 
 def infix_to_postfix(infixexpr):
-    prec = {}
-    prec["*"] = 3
-    prec["/"] = 3
-    prec["+"] = 2
-    prec["-"] = 2
-    prec["("] = 1
+    prec = {"*": 3, "/": 3, "+": 2, "-": 2, "(": 1}
     opStack = Stack()
     postfixList = []
     tokenList = infixexpr.split()
@@ -33,5 +28,5 @@ def infix_to_postfix(infixexpr):
     return " ".join(postfixList)
 
 
-print(infix_to_postfix("A * B + C * D"))
-print(infix_to_postfix("( A + B ) * C - ( D - E ) * ( F + G )"))
+print(infix_to_postfix("( 5 - A ) * ( C - 2 * B ) * D"))
+

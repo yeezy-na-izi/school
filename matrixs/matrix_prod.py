@@ -36,14 +36,15 @@ def numb_matrix(numb, x):
     return matrix_to_return
 
 
-stroka = [int(i) for i in input().split()]
-while stroka:
-    a.append(stroka)
-    stroka = [int(i) for i in input().split()]
+string = [int(i) for i in input().split()]
+while string:
+    a.append(string)
+    string = [int(i) for i in input().split()]
 
-stroka = [int(i) for i in input().split()]
-while stroka:
-    b.append(stroka)
-    stroka = [int(i) for i in input().split()]
+string = [int(i) for i in input().split()]
+while string:
+    b.append(string)
+    string = [int(i) for i in input().split()]
 w = sum_matrix(a, b)
-print(prod_matrix(w, w) == sum_matrix(sum_matrix(prod_matrix(a, a), prod_matrix(b, b)), numb_matrix(2, prod_matrix(a, b))))
+print(prod_matrix(w, w) ==
+      sum_matrix(sum_matrix(prod_matrix(a, a), prod_matrix(b, b)), numb_matrix(2, prod_matrix(a, b))))

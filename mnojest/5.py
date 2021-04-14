@@ -1,2 +1,2 @@
-print(*(set([input() for i in range(int(input()))]) -
-        set([input() for i in range(int(input())) for j in range(int(input()))])), sep='\n')
+print(*(set([input() for _ in range(int(input()))]) -
+        set([input() for _ in range(int(input())) for _ in range(int(input()))])), sep='\n')

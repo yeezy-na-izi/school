@@ -14,7 +14,22 @@ class Matrix:
         self.bin_matrix[-1].append(number)
 
     def determinant(self):
-        pass
+        d = 1
+        columns = 0
+        for i in range(self.line - 1):
+            z = self.bin_matrix[i][columns]
+            ma = i
+            for j in range(i + 1, self.line):
+                if abs(self.bin_matrix[j][columns]) > abs(z):
+                    z = self[j][columns]
+                    ma = i
+            if z == 0:
+                return 0
+            elif ma == i:
+                d *= z
+            else:
+                d *= -z
+                self.bin_matrix[i], self.bin_matrix[ma] = self.bin_matrix[ma], self.bin_matrix[i]
 
     def det(self):
         return self.determinant()

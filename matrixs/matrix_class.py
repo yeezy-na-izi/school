@@ -1,3 +1,6 @@
+import copy
+
+
 class Matrix:
     def __init__(self, line=0, column=0, matrix=None):
         if matrix is None:
@@ -16,12 +19,13 @@ class Matrix:
     def determinant(self):
         d = 1
         columns = 0
-        for i in range(self.line - 1):
-            z = self.bin_matrix[i][columns]
+        copy_matrix = copy.deepcopy(self)
+        for i in range(copy_matrix.line - 1):
+            z = copy_matrix.bin_matrix[i][columns]
             ma = i
-            for j in range(i + 1, self.line):
-                if abs(self.bin_matrix[j][columns]) > abs(z):
-                    z = self[j][columns]
+            for j in range(i + 1, copy_matrix.line):
+                if abs(copy_matrix.bin_matrix[j][columns]) > abs(z):
+                    z = copy_matrix[j][columns]
                     ma = i
             if z == 0:
                 return 0
@@ -29,10 +33,28 @@ class Matrix:
                 d *= z
             else:
                 d *= -z
-                self.bin_matrix[i], self.bin_matrix[ma] = self.bin_matrix[ma], self.bin_matrix[i]
+                copy_matrix.bin_matrix[i], copy_matrix.bin_matrix[ma] = copy_matrix.bin_matrix[ma], \
+                                                                        copy_matrix.bin_matrix[i]
+            constriction_x = copy_matrix.get_constriction()
+            for j in range(constriction_x.line):
+                for g in range(constriction_x.column):
+                    constriction_x.bin_matrix[j][g] -= copy_matrix[j + 1][0] * copy_matrix[0][g + 1] / copy_matrix[i][0]
+
+        print(d)
 
     def det(self):
         return self.determinant()
+
+    def get_constriction(self):
+        constriction_m = copy.deepcopy(self)
+        for i in range(constriction_m.column):
+            constriction_m.bin_matrix[i] = constriction_m.bin_matrix[i][1:]
+
+        constriction_m.bin_matrix = constriction_m.bin_matrix[1:]
+        constriction_m.line -= 1
+        constriction_m.column -= 1
+
+        return constriction_m
 
     def __mul__(self, other):
         if self.column == other.line:
@@ -76,15 +98,18 @@ class Matrix:
         for i in self.bin_matrix:
             string += ''.join([f'{j:4d}' for j in i]) + '\n'
         return string
+
     #
-    # def __setitem__(self, key, value):
-    #     pass
+    def __setitem__(self, key, value):
+        if key > len(self):
+            return None
+        self.bin_matrix[key] = value
+        return self
 
 
-x = [[-16, 9, 11], [9, -3, 0], [31, -3, -11]]
+x = [[3, 2, 1], [5, 3, 6], [4, 3, 6]]
 y = [[4], [1], [8]]
 
 first_obj = Matrix(3, 3, x)
 second_obj = Matrix(3, 1, y)
-x = first_obj * second_obj
-print(x)
+print(first_obj.determinant())

@@ -1,11 +1,12 @@
-from timeit import timeit
+from functools import cache
 
-q = 0
-for i in range(100):
-    q += timeit('x = sum(range(10))')
 
-z = 0
-for i in range(10):
-    z += timeit('x = sum(range(100))')
-print(q)
-print(z)
+@cache
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 1)
+
+
+for i in range(400):
+    print(i, fib(i))

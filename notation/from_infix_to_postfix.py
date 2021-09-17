@@ -28,5 +28,5 @@ def infix_to_postfix(infixexpr):
     return " ".join(postfixList)
 
 
-print(infix_to_postfix("( 5 - A ) * ( C - 2 * B ) * D"))
+print(infix_to_postfix("( A + B ) * C - A * B + C - B "))
 

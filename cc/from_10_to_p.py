@@ -6,7 +6,10 @@ def for_integer(integer_part, degree):
     if integer_part == 0:
         return '0'
     while integer_part:
-        number_to_return += str(integer_part % degree)
+        if integer_part % degree > 9:
+            number_to_return += chr(integer_part % degree + 55)
+        else:
+            number_to_return += str(integer_part % degree)
         integer_part //= degree
     number_to_return = number_to_return[::-1]
     while number_to_return.startswith('0'):
@@ -68,4 +71,4 @@ def from_10_to_p(number, cc):
         print(for_integer(int(number[0]), cc) + '.' + result[:ind] + '(' + result[ind:] + ')')
 
 
-from_10_to_p('123', 9)
+# from_10_to_p('123', 9)

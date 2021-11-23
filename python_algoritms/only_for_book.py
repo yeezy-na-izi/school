@@ -1,1 +1,0 @@
-print(sum(0.5 for i in range(10)))

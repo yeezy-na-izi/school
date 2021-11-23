@@ -44,4 +44,4 @@ def period(n, x=2):
     print(integer + fractional)
 
 
-period(input())
+period(input(), 10)

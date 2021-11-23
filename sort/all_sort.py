@@ -30,6 +30,46 @@ def selection_sort(nums):
         nums[i], nums[lowest_value_index] = nums[lowest_value_index], nums[i]
 
 
+def merge(a, b):
+    inda = 0
+    indb = 0
+    c = []
+    n, m = len(a), len(b)
+    while inda < n and indb < m:
+        if a[inda] < b[indb]:
+            c.append(a[inda])
+            inda += 1
+        else:
+            c.append(b[indb])
+            indb += 1
+    c += a[inda:] + b[indb:]
+    return c
+
+
+def merge_sort(a):
+    if len(a) <= 1:
+        return a
+    return merge(merge_sort(a[:len(a) // 2]), merge_sort(a[len(a) // 2:]))
+
+
+def quicksort(nums):
+    if len(nums) <= 1:
+        return nums
+    else:
+        q = random.choice(nums)
+        s_nums = []
+        m_nums = []
+        e_nums = []
+        for n in nums:
+            if n < q:
+                s_nums.append(n)
+            elif n > q:
+                m_nums.append(n)
+            else:
+                e_nums.append(n)
+        return quicksort(s_nums) + e_nums + quicksort(m_nums)
+
+
 def perfect(nums):
     x = []
     for i in nums:
@@ -73,43 +113,3 @@ def palindrome(nums):
         if str(i) == str(i)[::-1]:
             x.append(i)
     return x
-
-
-def merge(a, b):
-    inda = 0
-    indb = 0
-    c = []
-    n, m = len(a), len(b)
-    while inda < n and indb < m:
-        if a[inda] < b[indb]:
-            c.append(a[inda])
-            inda += 1
-        else:
-            c.append(b[indb])
-            indb += 1
-    c += a[inda:] + b[indb:]
-    return c
-
-
-def merge_sort(a):
-    if len(a) <= 1:
-        return a
-    return merge(merge_sort(a[:len(a) // 2]), merge_sort(a[len(a) // 2:]))
-
-
-def quicksort(nums):
-    if len(nums) <= 1:
-        return nums
-    else:
-        q = random.choice(nums)
-        s_nums = []
-        m_nums = []
-        e_nums = []
-        for n in nums:
-            if n < q:
-                s_nums.append(n)
-            elif n > q:
-                m_nums.append(n)
-            else:
-                e_nums.append(n)
-        return quicksort(s_nums) + e_nums + quicksort(m_nums)

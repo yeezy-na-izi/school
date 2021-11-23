@@ -152,12 +152,13 @@ class BalancedTree:
 # дерево "а" для неотсортированного вывода
 # a = BalancedTree(50)
 b = BalancedTree(50)
-for i in range(60):
-    x = random.randint(0, 200)
-    print(x, end=' ')
+for i in range(65):
+    # x = random.randint(0, 200)
+    # print(x, end=' ')
+    x = i
     b.insert(x)
     # a.insert_without_balance(x)
-print()
+print(b)
 b.display()
 # a.display()
 

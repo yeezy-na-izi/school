@@ -37,14 +37,14 @@ def get_min(first_array, second_array, amount):
         if el % 2 == 1:  # меняется от задачи
             first.append(su)
             su = 0
-    su = 0  # промежуточная сумма
+    su = 0  # проме жуточная сумма
     second = []
     for el in second_array:
         su += el
         if el % 2 == 1:  # меняется от задачи
             second.append(su)
             su = 0
-    min_sum = 1234567891
+    min_sum = float('inf')
     for index in range(amount + 1):
         possible_variant = first[:count - index] + second[:index]
         if sum(possible_variant) < min_sum:

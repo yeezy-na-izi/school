@@ -15,7 +15,7 @@ elif z == 2:
     cc = int(input('Система счисления '))
     from_p_to_10(inp, cc)
 elif z == 3:
-    number = input('Число через точку ')
+    number = input('Число через точку ').split('.')
     cc = int(input('Система входного '))
     degree = int(input('Степень выходного '))
     print('1) Из меньшей в большую?')

@@ -153,12 +153,12 @@ class BalancedTree:
 # a = BalancedTree(50)
 b = BalancedTree(50)
 for i in range(65):
-    # x = random.randint(0, 200)
-    # print(x, end=' ')
+    x = random.randint(0, 200)
+
     x = i
     b.insert(x)
     # a.insert_without_balance(x)
-print(b)
+
 b.display()
 # a.display()
 

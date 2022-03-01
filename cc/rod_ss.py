@@ -32,7 +32,6 @@ def from_small_to_big(n, p, k):
 
 
 def rod_cc(number, cc, degree, boolean):
-    number = number.split('.')
     if boolean == '1':
         main_def = from_small_to_big
     else:

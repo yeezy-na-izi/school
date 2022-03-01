@@ -4,11 +4,12 @@ with open('26data/26-42.txt') as file_input:
     b_type = []
     for string in file_input:
         letter, price, count = string.split()
-        if letter == 'A':
+        if letter == 'Z':
             # a_type.append((int(price), int(count)))
             money -= int(price) * int(count)
         else:
             b_type.append((int(price), int(count)))
+    print(money)
     counter = 0
     for i in sorted(b_type, key=lambda el: el[0]):
         if money >= i[0] * i[1]:
